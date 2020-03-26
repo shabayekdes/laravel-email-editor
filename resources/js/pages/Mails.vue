@@ -12,12 +12,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>#</td>
-              <td>Subject</td>
-              <td>Message</td>
+            <tr v-for="template in templates" :key="template.id">
+              <td>{{ template.id }}</td>
+              <td>{{ template.subject }}</td>
+              <td>{{ template.message }}</td>
               <td>
-                <a href="#">Edit</a>
+                <router-link
+                  :to="{ name: 'mail.editor' , params: { id: template.id } }"
+                  class="btn btn-info float-right"
+                >Edit</router-link>
               </td>
             </tr>
           </tbody>
@@ -28,7 +31,23 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      templates: {}
+    };
+  },
+  methods: {
+    fetch() {
+      axios.get(`/api/emails`).then(res => {
+        this.templates = res.data.templates;
+      });
+    }
+  },
+  mounted() {
+    this.fetch();
+  }
+};
 </script>
 
 <style>

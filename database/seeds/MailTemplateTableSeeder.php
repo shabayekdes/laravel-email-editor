@@ -14,21 +14,19 @@ class MailTemplateTableSeeder extends Seeder
     {
         MailTemplate::create([
             'subject' => 'Invoice {number} from {business_name}',
+            'subject' => 'Invoice {number} from {business_name}',
             'message' => '# Invoice
+Dear {customer},
 
-                        Dear {customer},
+You have a new invoice for **{amount}** . We appreciate your prompt payment.
+You can pay online using Paypal by following below link:
+{payment_link}
 
-                        You have a new invoice for **{amount}**. We appreciate your prompt payment.
+Let us know once the payment is completed.
 
-                        You can pay online using Paypal by following below link:
+Thank you!
 
-                        {payment_link}
-
-                        Let us know once the payment is completed.
-
-                        Thank you!
-
-                        {business_name}',
+{business_name}',
             'replaceable' => '{"{number}":"INV\/2018\/1002","{business_name}":"John Doe Inc","{shabayek}":"Esmail Shabayek","{customer}":"Jane Doe","{amount}":"$850.00","{due_date}":"May 25th 2018","{payment_link}":"https:\/\/example.com\/payment-link"}'
         ]);
     }

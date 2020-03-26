@@ -8,12 +8,12 @@ import Editor from "./pages/Editor";
 
 const routes = [
     {
-        path: "/mails",
+        path: "/home/mails",
         name: "mail.index",
         component: ListMails
     },
     {
-        path: "/editor",
+        path: "/home/editor/:id",
         name: "mail.editor",
         component: Editor
     }
