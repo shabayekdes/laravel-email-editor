@@ -53,9 +53,9 @@ class MailTemplateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, MailTemplate $template)
     {
-        //
+        dd($template);
     }
 
     /**
@@ -82,11 +82,11 @@ class MailTemplateController extends Controller
             'message' => $this->replaceVariables($request->message)
         ];
 
-        // return Mail::to($request->email_to)
-        //     ->send(new SendInvoice($data));
+        return Mail::to($request->email_to)
+            ->send(new SendInvoice($data));
 
         // debug
-        return new SendInvoice($data);
+        // return new SendInvoice($data);
     }
 
     protected function replaceVariables($message)

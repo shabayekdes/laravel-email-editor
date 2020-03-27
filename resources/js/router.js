@@ -3,19 +3,31 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-import ListMails from "./pages/Mails";
-import Editor from "./pages/Editor";
+import ListTemplates from "./pages/Templates";
+import EditTemplate from "./pages/EditTemplate";
+import CreateTemplate from "./pages/CreateTemplate";
+import ComposeEmail from "./pages/ComposeEmail";
 
 const routes = [
     {
-        path: "/home/mails",
-        name: "mail.index",
-        component: ListMails
+        path: "/app/templates",
+        name: "template.index",
+        component: ListTemplates
     },
     {
-        path: "/home/editor/:id",
-        name: "mail.editor",
-        component: Editor
+        path: "/app/template/create",
+        name: "template.create",
+        component: CreateTemplate
+    },
+    {
+        path: "/app/template/:id/edit",
+        name: "template.edit",
+        component: EditTemplate
+    },
+    {
+        path: "/app/mail/compose",
+        name: "mail.compose",
+        component: ComposeEmail
     }
 ];
 

@@ -33,7 +33,7 @@
         </div>
         <div class="md-btn">
           <button class="btn btn-success" @click="send">Send</button>
-          <button class="btn btn-success">Save</button>
+          <button class="btn btn-dark" @click="update">Save</button>
         </div>
       </div>
       <div class="col-md-5">
@@ -77,6 +77,13 @@ export default {
       axios.post(`/api/email/create`, this.template).then(res => {
         alert("Done!");
       });
+    },
+    update() {
+      axios
+        .put(`/api/email/${this.$route.params.id}/update`, this.template)
+        .then(res => {
+          alert("Done!");
+        });
     }
   },
   mounted() {

@@ -25,4 +25,14 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    /**
+     * Show the application mails.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function mails()
+    {
+        return view('mails');
+    }
 }
