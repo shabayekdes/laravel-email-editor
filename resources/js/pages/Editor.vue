@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="md-btn">
-          <button class="btn btn-success">Send</button>
+          <button class="btn btn-success" @click="send">Send</button>
           <button class="btn btn-success">Save</button>
         </div>
       </div>
@@ -72,6 +72,11 @@ export default {
       });
 
       return updated;
+    },
+    send() {
+      axios.post(`/api/email/create`, this.template).then(res => {
+        alert("Done!");
+      });
     }
   },
   mounted() {

@@ -24,3 +24,4 @@ Route::get('/home/{path}', 'HomeController@index')->where('path', '([A-z\d-\/_.]
 
 Route::get('api/email/{template}/show', 'MailTemplateController@show');
 Route::get('api/emails', 'MailTemplateController@index');
+Route::post('api/email/create', 'MailTemplateController@send');

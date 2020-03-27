@@ -1981,6 +1981,11 @@ __webpack_require__.r(__webpack_exports__);
         updated = updated.replace(new RegExp(key, "g"), lookup[key]);
       });
       return updated;
+    },
+    send: function send() {
+      axios.post("/api/email/create", this.template).then(function (res) {
+        alert("Done!");
+      });
     }
   },
   mounted: function mounted() {
@@ -46315,7 +46320,15 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(1)
+        _c("div", { staticClass: "md-btn" }, [
+          _c(
+            "button",
+            { staticClass: "btn btn-success", on: { click: _vm.send } },
+            [_vm._v("Send")]
+          ),
+          _vm._v(" "),
+          _c("button", { staticClass: "btn btn-success" }, [_vm._v("Save")])
+        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-5" }, [
@@ -46339,16 +46352,6 @@ var staticRenderFns = [
     return _c("label", [
       _vm._v("\n          Message\n          "),
       _c("small", [_vm._v("(MARKDOWN)")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "md-btn" }, [
-      _c("button", { staticClass: "btn btn-success" }, [_vm._v("Send")]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-success" }, [_vm._v("Save")])
     ])
   }
 ]

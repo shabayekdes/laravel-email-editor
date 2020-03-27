@@ -17,7 +17,6 @@ class CreateMailTemplatesTable extends Migration
             $table->id();
             $table->string('subject');
             $table->text('message');
-            $table->text('replaceable');
             $table->timestamps();
         });
     }
