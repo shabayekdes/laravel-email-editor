@@ -13,7 +13,7 @@ class MailTemplateTableSeeder extends Seeder
     public function run()
     {
         MailTemplate::create([
-            'subject' => 'Invoice {number} from {business_name}',
+            'template_name' => 'Template 1',
             'subject' => 'Invoice {number} from {business_name}',
             'message' => '# Invoice
 Dear {customer},
@@ -27,7 +27,7 @@ Let us know once the payment is completed.
 Thank you!
 
 {business_name}',
-            'replaceable' => '{"{number}":"INV\/2018\/1002","{business_name}":"John Doe Inc","{shabayek}":"Esmail Shabayek","{customer}":"Jane Doe","{amount}":"$850.00","{due_date}":"May 25th 2018","{payment_link}":"https:\/\/example.com\/payment-link"}'
+            'type' => 1
         ]);
     }
 }

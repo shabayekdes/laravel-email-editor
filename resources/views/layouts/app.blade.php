@@ -38,7 +38,10 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/app/compose') }}">Compose</a>
+                            <a class="nav-link" href="{{ url('/app/templates') }}">Templates</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/app/mail/compose') }}">Compose</a>
                         </li>
                     </ul>
 

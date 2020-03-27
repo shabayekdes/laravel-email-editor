@@ -14,7 +14,7 @@
                     </div>
                     @endif
 
-                    <a href="{{ url('app/mails') }}" class="btn btn-dark">List mails</a>
+                    <a href="{{ url('app/templates') }}" class="btn btn-dark">List mails</a>
                 </div>
             </div>
         </div>

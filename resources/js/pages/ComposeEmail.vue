@@ -5,12 +5,7 @@
         <form>
           <div class="form-group">
             <label>Email To</label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter email to"
-              v-model="template.email_to"
-            />
+            <input type="text" class="form-control" placeholder="Enter email to" />
           </div>
           <div class="form-group">
             <label for="subject">Subject</label>

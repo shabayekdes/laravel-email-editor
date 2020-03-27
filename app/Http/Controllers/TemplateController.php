@@ -7,7 +7,7 @@ use App\Models\MailTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
-class MailTemplateController extends Controller
+class TemplateController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -29,7 +29,20 @@ class MailTemplateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validateData = $request->validate([
+            'template_name' => 'required',
+            'type' => 'required|integer',
+            'subject' => 'required',
+            'message' => 'required'
+        ]);
+
+        $template = MailTemplate::create($validateData);
+
+        return response()
+            ->json([
+                'success' => 'true',
+            ], 200);
     }
 
     /**

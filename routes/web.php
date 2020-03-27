@@ -22,7 +22,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/app/{path}', 'HomeController@mails')->where('path', '([A-z\d-\/_.]+)?');
 
-Route::get('api/emails', 'MailTemplateController@index');
-Route::post('api/email/create', 'MailTemplateController@send');
-Route::get('api/email/{template}/show', 'MailTemplateController@show');
-Route::put('api/email/{template}/update', 'MailTemplateController@update');
+Route::get('api/templates', 'TemplateController@index');
+Route::post('api/template/store', 'TemplateController@store');
+Route::get('api/template/{template}/show', 'TemplateController@show');
+Route::put('api/template/{template}/update', 'TemplateController@update');
+
+Route::post('api/templates/create', 'TemplateController@send');

@@ -2,13 +2,14 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6">
-        <form>
+        <form @submit.prevent="createTemplate">
           <div class="form-group row">
             <label for="template_name" class="col-sm-4 col-form-label">Template Name</label>
             <div class="col-sm-8">
               <input
                 type="text"
                 class="form-control"
+                v-model="form.template_name"
                 id="template_name"
                 placeholder="Enter name of template ..."
                 aria-describedby="NameHelp"
@@ -22,7 +23,7 @@
           <div class="form-group row">
             <label for="template_type" class="col-sm-4 col-form-label">Template Type</label>
             <div class="col-sm-8">
-              <select class="custom-select">
+              <select class="custom-select" v-model="form.type">
                 <option selected>Open this select menu</option>
                 <option value="1">Invoice</option>
               </select>
@@ -30,13 +31,22 @@
           </div>
           <div class="form-group">
             <label for="subject">Subject</label>
-            <input type="text" class="form-control" placeholder="Subject of email ..." id="subject" />
+            <input
+              type="text"
+              class="form-control"
+              v-model="form.subject"
+              placeholder="Subject of email ..."
+              id="subject"
+            />
           </div>
           <div class="form-group">
             <label for="message">Message</label>
-            <textarea class="form-control" placeholder="Enter body of message here ..."></textarea>
+            <textarea
+              class="form-control"
+              v-model="form.message"
+              placeholder="Enter body of message here ..."
+            ></textarea>
           </div>
-
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
@@ -48,8 +58,18 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      form: {}
+    };
+  },
+  methods: {
+    createTemplate() {
+      axios.post(`/api/template/store`, this.form).then(res => {
+        this.$router.push({ path: "/app/templates" });
+      });
+    }
+  }
+};
 </script>
-
-<style>
-</style>

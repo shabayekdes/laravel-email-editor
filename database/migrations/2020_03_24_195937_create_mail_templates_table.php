@@ -18,7 +18,7 @@ class CreateMailTemplatesTable extends Migration
             $table->string('template_name');
             $table->string('subject');
             $table->text('message');
-            $table->text('type');
+            $table->unsignedInteger('type');
             $table->timestamps();
         });
     }

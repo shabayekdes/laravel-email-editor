@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     fetch() {
-      axios.get(`/api/email/${this.$route.params.id}/show`).then(res => {
+      axios.get(`/api/template/${this.$route.params.id}/show`).then(res => {
         this.template = res.data.template;
       });
     },
@@ -74,13 +74,13 @@ export default {
       return updated;
     },
     send() {
-      axios.post(`/api/email/create`, this.template).then(res => {
+      axios.post(`/api/template/create`, this.template).then(res => {
         alert("Done!");
       });
     },
     update() {
       axios
-        .put(`/api/email/${this.$route.params.id}/update`, this.template)
+        .put(`/api/template/${this.$route.params.id}/update`, this.template)
         .then(res => {
           alert("Done!");
         });

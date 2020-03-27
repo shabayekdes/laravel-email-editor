@@ -28,8 +28,8 @@
               <td>{{ template.message }}</td>
               <td>
                 <router-link
-                  :to="{ name: 'mail.editor' , params: { id: template.id } }"
-                  class="btn btn-info float-right"
+                  :to="{ name: 'template.edit' , params: { id: template.id } }"
+                  class="btn btn-primary float-right"
                 >Edit</router-link>
               </td>
             </tr>
@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     fetch() {
-      axios.get(`/api/emails`).then(res => {
+      axios.get(`/api/templates`).then(res => {
         this.templates = res.data.templates;
       });
     }
