@@ -29,7 +29,6 @@ class TemplateController extends Controller
      */
     public function store(Request $request)
     {
-
         $validateData = $request->validate([
             'template_name' => 'required',
             'type' => 'required|integer',
@@ -56,6 +55,7 @@ class TemplateController extends Controller
         return response()
             ->json([
                 'template' => $template,
+                'options' => $this->getReplaceable()
             ]);
     }
 
@@ -68,7 +68,19 @@ class TemplateController extends Controller
      */
     public function update(Request $request, MailTemplate $template)
     {
-        dd($template);
+        $validateData = $request->validate([
+            'template_name' => 'required',
+            'type' => 'required|integer',
+            'subject' => 'required',
+            'message' => 'required'
+        ]);
+
+        $template->update($validateData);
+
+        return response()
+            ->json([
+                'success' => 'true',
+            ], 200);
     }
 
     /**

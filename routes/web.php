@@ -27,4 +27,4 @@ Route::post('api/template/store', 'TemplateController@store');
 Route::get('api/template/{template}/show', 'TemplateController@show');
 Route::put('api/template/{template}/update', 'TemplateController@update');
 
-Route::post('api/templates/create', 'TemplateController@send');
+Route::post('api/template/create', 'TemplateController@send');

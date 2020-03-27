@@ -16,16 +16,16 @@
           <thead class="thead-dark">
             <tr>
               <th scope="col">#</th>
+              <th scope="col">Template Name</th>
               <th scope="col">Subject</th>
-              <th scope="col">Message</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="template in templates" :key="template.id">
               <td>{{ template.id }}</td>
+              <td>{{ template.template_name }}</td>
               <td>{{ template.subject }}</td>
-              <td>{{ template.message }}</td>
               <td>
                 <router-link
                   :to="{ name: 'template.edit' , params: { id: template.id } }"

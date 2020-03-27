@@ -2,6 +2,32 @@
   <div class="container">
     <div class="row">
       <div class="col-md-7">
+        <div class="form-group row">
+          <label for="template_name" class="col-sm-4 col-form-label">Template Name</label>
+          <div class="col-sm-8">
+            <input
+              type="text"
+              class="form-control"
+              v-model="template.template_name"
+              id="template_name"
+              placeholder="Enter name of template ..."
+              aria-describedby="NameHelp"
+            />
+            <small
+              id="NameHelp"
+              class="form-text text-muted"
+            >Template name sample not appear when send email.</small>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="template_type" class="col-sm-4 col-form-label">Template Type</label>
+          <div class="col-sm-8">
+            <select class="custom-select" v-model="template.type">
+              <option selected>Open this select menu</option>
+              <option value="1">Invoice</option>
+            </select>
+          </div>
+        </div>
         <div class="form-group">
           <label>Email To</label>
           <input
@@ -29,6 +55,14 @@
           </label>
           <div class="form-lookup">
             <textarea class="form-control" v-model="template.message"></textarea>
+            <ul class="form-list">
+              <li
+                v-for="(value, key) in activeOptions"
+                :key="key"
+                draggable="true"
+                @dragstart="onDrag(key, $event)"
+              >{{value}}</li>
+            </ul>
           </div>
         </div>
         <div class="md-btn">
@@ -48,19 +82,14 @@ export default {
   data() {
     return {
       template: {},
-      options: {
-        variables: {
-          subject: {},
-          message: {}
-        },
-        replaceable: {}
-      }
+      options: {}
     };
   },
   methods: {
     fetch() {
       axios.get(`/api/template/${this.$route.params.id}/show`).then(res => {
         this.template = res.data.template;
+        this.options = res.data.options;
       });
     },
     replaceVariables(input) {
@@ -73,6 +102,9 @@ export default {
 
       return updated;
     },
+    onDrag(value, e) {
+      e.dataTransfer.setData("text/plain", value);
+    },
     send() {
       axios.post(`/api/template/create`, this.template).then(res => {
         alert("Done!");
@@ -82,7 +114,7 @@ export default {
       axios
         .put(`/api/template/${this.$route.params.id}/update`, this.template)
         .then(res => {
-          alert("Done!");
+          this.$router.push({ path: "/app/templates" });
         });
     }
   },
@@ -96,6 +128,16 @@ export default {
     compiledMarkdown() {
       const input = this.replaceVariables(this.template.message || "");
       return md.render(input);
+    },
+    activeOptions() {
+      const active = {};
+      Object.keys(this.options).forEach(key => {
+        if (this.template.message.indexOf(key) <= 0) {
+          active[key] = this.options[key];
+        }
+      });
+
+      return active;
     }
   }
 };

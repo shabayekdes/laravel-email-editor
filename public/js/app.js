@@ -2079,17 +2079,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       template: {},
-      options: {
-        variables: {
-          subject: {},
-          message: {}
-        },
-        replaceable: {}
-      }
+      options: {}
     };
   },
   methods: {
@@ -2098,6 +2126,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/api/template/".concat(this.$route.params.id, "/show")).then(function (res) {
         _this.template = res.data.template;
+        _this.options = res.data.options;
       });
     },
     replaceVariables: function replaceVariables(input) {
@@ -2108,14 +2137,21 @@ __webpack_require__.r(__webpack_exports__);
       });
       return updated;
     },
+    onDrag: function onDrag(value, e) {
+      e.dataTransfer.setData("text/plain", value);
+    },
     send: function send() {
       axios.post("/api/template/create", this.template).then(function (res) {
         alert("Done!");
       });
     },
     update: function update() {
+      var _this2 = this;
+
       axios.put("/api/template/".concat(this.$route.params.id, "/update"), this.template).then(function (res) {
-        alert("Done!");
+        _this2.$router.push({
+          path: "/app/templates"
+        });
       });
     }
   },
@@ -2129,6 +2165,17 @@ __webpack_require__.r(__webpack_exports__);
     compiledMarkdown: function compiledMarkdown() {
       var input = this.replaceVariables(this.template.message || "");
       return md.render(input);
+    },
+    activeOptions: function activeOptions() {
+      var _this3 = this;
+
+      var active = {};
+      Object.keys(this.options).forEach(function (key) {
+        if (_this3.template.message.indexOf(key) <= 0) {
+          active[key] = _this3.options[key];
+        }
+      });
+      return active;
     }
   }
 });
@@ -46675,6 +46722,107 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-7" }, [
+        _c("div", { staticClass: "form-group row" }, [
+          _c(
+            "label",
+            {
+              staticClass: "col-sm-4 col-form-label",
+              attrs: { for: "template_name" }
+            },
+            [_vm._v("Template Name")]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-8" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.template.template_name,
+                  expression: "template.template_name"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                id: "template_name",
+                placeholder: "Enter name of template ...",
+                "aria-describedby": "NameHelp"
+              },
+              domProps: { value: _vm.template.template_name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.template, "template_name", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "small",
+              {
+                staticClass: "form-text text-muted",
+                attrs: { id: "NameHelp" }
+              },
+              [_vm._v("Template name sample not appear when send email.")]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group row" }, [
+          _c(
+            "label",
+            {
+              staticClass: "col-sm-4 col-form-label",
+              attrs: { for: "template_type" }
+            },
+            [_vm._v("Template Type")]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-8" }, [
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.template.type,
+                    expression: "template.type"
+                  }
+                ],
+                staticClass: "custom-select",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.template,
+                      "type",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { selected: "" } }, [
+                  _vm._v("Open this select menu")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "1" } }, [_vm._v("Invoice")])
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
           _c("label", [_vm._v("Email To")]),
           _vm._v(" "),
@@ -46752,7 +46900,28 @@ var render = function() {
                   _vm.$set(_vm.template, "message", $event.target.value)
                 }
               }
-            })
+            }),
+            _vm._v(" "),
+            _c(
+              "ul",
+              { staticClass: "form-list" },
+              _vm._l(_vm.activeOptions, function(value, key) {
+                return _c(
+                  "li",
+                  {
+                    key: key,
+                    attrs: { draggable: "true" },
+                    on: {
+                      dragstart: function($event) {
+                        return _vm.onDrag(key, $event)
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(value))]
+                )
+              }),
+              0
+            )
           ])
         ]),
         _vm._v(" "),
@@ -46855,9 +47024,9 @@ var render = function() {
               return _c("tr", { key: template.id }, [
                 _c("td", [_vm._v(_vm._s(template.id))]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(template.subject))]),
+                _c("td", [_vm._v(_vm._s(template.template_name))]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(template.message))]),
+                _c("td", [_vm._v(_vm._s(template.subject))]),
                 _vm._v(" "),
                 _c(
                   "td",
@@ -46904,9 +47073,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Subject")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Template Name")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Message")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Subject")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")])
       ])
